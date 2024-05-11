@@ -31,18 +31,8 @@ const static float VISC_LAP = 40.f / (M_PI * pow(H, 5.f));
 const static float EPS = H; // boundary epsilon
 const static float BOUND_DAMPING = -0.5f;
 
-// particle data structure
-// stores position, velocity, and force for integration
-// stores density (rho) and pressure values for SPH
-struct Particle
-{
-	Particle(float _x, float _y) : x(_x, _y), v(0.f, 0.f), f(0.f, 0.f), rho(0), p(0.f) {}
-	Vector2d x, v, f;
-	float rho, p;
-};
 
-// solver data
-static vector<Particle> particles;
+
 
 // interaction
 const static int MAX_PARTICLES = 2500;
@@ -55,6 +45,20 @@ const static int WINDOW_HEIGHT = 600;
 const static double VIEW_WIDTH = 1.5 * 800.f;
 const static double VIEW_HEIGHT = 1.5 * 600.f;
 
+
+
+// PARTICLE STRUCT
+struct Particle
+{
+    // position (x), velocity (v), force (f), density (rho), pressure (p)
+    // uses Eigen library
+	Particle(float _x, float _y) : x(_x, _y), v(0.f, 0.f), f(0.f, 0.f), rho(0), p(0.f) {}
+	Vector2d x, v, f;
+	float rho, p;
+};
+
+// solver data
+static vector<Particle> particles;
 
 // RENDERING SYSTEMS
 void InitGL(void){
@@ -88,7 +92,16 @@ void InitSPH(void){}
 void Integrate(void){}
 void ComputeDensityPressure(void){}
 void ComputeForces(void){}
-void Update(void){}
+void Update(void){
+    // called between frame renders to step sim state forward
+    // according to SPH, first compute densities, then compute pressure
+    // then use densities and pressure to calculate the forces acting on each particle, which are used by Integrate()
+    ComputeDensityPressure();
+	ComputeForces();
+	Integrate();
+
+	glutPostRedisplay();
+}
 
 // MAIN
 void Keyboard(unsigned char c){}
