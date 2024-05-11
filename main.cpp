@@ -57,8 +57,31 @@ const static double VIEW_HEIGHT = 1.5 * 600.f;
 
 
 // RENDERING SYSTEMS
-void InitGL(void){}
-void Render(void){}
+void InitGL(void){
+    // initializes GL: sets background color, point smoothing, 
+    glClearColor(0.9f, 0.9f, 0.9f, 1);
+	glEnable(GL_POINT_SMOOTH);
+	glPointSize(H / 2.f);
+	glMatrixMode(GL_PROJECTION);
+}
+void Render(void){
+    // clears GL and sets up coord system, particle color
+    // loops through particles array and places vertex at x/y
+    glClear(GL_COLOR_BUFFER_BIT);
+
+	glLoadIdentity();
+	glOrtho(0, VIEW_WIDTH, 0, VIEW_HEIGHT, 0, 1);
+
+	glColor4f(0.2f, 0.6f, 1.f, 1);
+	glBegin(GL_POINTS);
+	for (auto &p : particles)
+	{
+		glVertex2f(p.x(0), p.x(1));
+	}
+	glEnd();
+
+	glutSwapBuffers();
+}
 
 // SOLVER
 void InitSPH(void){}
