@@ -197,9 +197,13 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInit(&argc, argv);
 	glutCreateWindow("Müller SPH");
+
+	// sets render to generate new frames as often as possible
 	glutDisplayFunc(Render);
+	// sets update to move sim forward
 	glutIdleFunc(Update);
 
+	// initilizes rendering environement with particles
     InitGL();
 	InitSPH();
 
