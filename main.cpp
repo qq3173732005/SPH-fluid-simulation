@@ -30,14 +30,8 @@ const static float VISC_LAP = 40.f / (M_PI * pow(H, 5.f)); // viscosity
 // simulation parameters
 const static float EPS = H; // boundary epsilon
 const static float BOUND_DAMPING = -0.5f;
-
-
-
-
-// interaction
-const static int MAX_PARTICLES = 2500;
 const static int DAM_PARTICLES = 500;
-const static int BLOCK_PARTICLES = 250;
+
 
 // rendering projection parameters
 const static int WINDOW_WIDTH = 800;
@@ -197,9 +191,18 @@ void Update(void){
 }
 
 // MAIN
-void Keyboard(unsigned char c){}
-
 int main(int argc, char **argv)
 {
+    glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+	glutInit(&argc, argv);
+	glutCreateWindow("Müller SPH");
+	glutDisplayFunc(Render);
+	glutIdleFunc(Update);
+
+    InitGL();
+	InitSPH();
+
+	glutMainLoop();
 	return 0;
 }
