@@ -10,11 +10,6 @@ SPH_OPENGL_LIBS       = -framework OpenGL -framework GLUT
 # SPH_LIBRARY_PATH      =
 # SPH_OPENGL_LIBS       = -lglut -lGL -lX11
 
-# # Windows / Cygwin
-# SPH_INCLUDE_PATH      = -I/usr/include/opengl
-# SPH_LIBRARY_PATH      = -L/usr/lib/w32api
-# SPH_OPENGL_LIBS       = -lglut32 -lopengl32
-
 #######################################################################################################
 
 TARGET = sph
